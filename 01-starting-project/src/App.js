@@ -3,6 +3,7 @@ import Cart from './components/cart/Cart.js'
 import CartProvider from "./store/CartProvider.js";
 import AvailableMeals from './components/meals/AvailableMeals.js'
 import Header from './components/layout/Header'
+import reactDom from 'react-dom'
 function App() {
 
   const [showCartFlag,setshowCartFlag] = useState(false)
@@ -14,8 +15,9 @@ function App() {
   return (
     
     <CartProvider >
-           <Header showCartFlagHandler = {showCartFlagHandler} />
-           {showCartFlag && <Cart showCartFlagHandler = {showCartFlagHandler} />}
+
+           {reactDom.createPortal(<Header showCartFlagHandler = {showCartFlagHandler} />,document.getElementById("header"))}
+           {showCartFlag && reactDom.createPortal(<Cart showCartFlagHandler = {showCartFlagHandler}/>,document.getElementById("cart"))}
            <AvailableMeals/> 
 
     </CartProvider >
